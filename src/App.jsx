@@ -74,21 +74,21 @@ export default function App() {
   };
 
   return (
-    <div style={{padding:20,fontFamily:\"sans-serif\"}}>
+    <div style={{padding:20,fontFamily:"sans-serif"}}>
       <h1>🚗 CarPoolr</h1>
       <div style={{marginBottom:20}}>
-        <button onClick={()=>setTab(\"find\")}>Find Rides</button>{' '}
-        <button onClick={()=>setTab(\"offer\")}>Offer Ride</button>{' '}
-        <button onClick={()=>setTab(\"bookings\")}>My Bookings</button>{' '}
-        <button onClick={()=>setTab(\"profile\")}>Profile</button>
+        <button onClick={()=>setTab("find")}>Find Rides</button>{' '}
+        <button onClick={()=>setTab("offer")}>Offer Ride</button>{' '}
+        <button onClick={()=>setTab("bookings")}>My Bookings</button>{' '}
+        <button onClick={()=>setTab("profile")}>Profile</button>
       </div>
 
-      {tab===\"find\" && <div>
+      {tab==="find" && <div>
         <h2>Find Rides</h2>
-        <input placeholder=\"From\" value={query.from} onChange={e=>setQuery({...query,from:e.target.value})}/> {' '}
-        <input placeholder=\"To\" value={query.to} onChange={e=>setQuery({...query,to:e.target.value})}/> {' '}
-        <input type=\"date\" value={query.date} onChange={e=>setQuery({...query,date:e.target.value})}/> {' '}
-        <input type=\"number\" value={query.seats} onChange={e=>setQuery({...query,seats:e.target.value})}/> seats
+        <input placeholder="From" value={query.from} onChange={e=>setQuery({...query,from:e.target.value})}/> {' '}
+        <input placeholder="To" value={query.to} onChange={e=>setQuery({...query,to:e.target.value})}/> {' '}
+        <input type="date" value={query.date} onChange={e=>setQuery({...query,date:e.target.value})}/> {' '}
+        <input type="number" value={query.seats} onChange={e=>setQuery({...query,seats:e.target.value})}/> seats
         <ul>
           {filtered.map(r=>(
             <li key={r.id}>
@@ -99,24 +99,24 @@ export default function App() {
         </ul>
       </div>}
 
-      {tab===\"offer\" && <div>
+      {tab==="offer" && <div>
         <h2>Offer Ride</h2>
-        <form onSubmit={(e)=>{e.preventDefault(); const fd=new FormData(e.currentTarget); const ride=Object.fromEntries(fd.entries()); ride.id=uid(); ride.seats=Number(ride.seats||1); setRides([ride,...rides]); setToast(\"✅ Ride published!\"); setTab(\"find\"); e.currentTarget.reset();}}>
-          <input name=\"from\" placeholder=\"From\" required/> <input name=\"to\" placeholder=\"To\" required/> <input name=\"date\" type=\"date\" required/> <input name=\"time\" type=\"time\" required/> <input name=\"seats\" type=\"number\" defaultValue={1}/> <input name=\"price\" type=\"number\" placeholder=\"Price\"/> <button type=\"submit\">Publish</button>
+        <form onSubmit={(e)=>{e.preventDefault(); const fd=new FormData(e.currentTarget); const ride=Object.fromEntries(fd.entries()); ride.id=uid(); ride.seats=Number(ride.seats||1); setRides([ride,...rides]); setToast("✅ Ride published!"); setTab("find"); e.currentTarget.reset();}}>
+          <input name="from" placeholder="From" required/> <input name="to" placeholder="To" required/> <input name="date" type="date" required/> <input name="time" type="time" required/> <input name="seats" type="number" defaultValue={1}/> <input name="price" type="number" placeholder="Price"/> <button type="submit">Publish</button>
         </form>
       </div>}
 
-      {tab===\"bookings\" && <div>
+      {tab==="bookings" && <div>
         <h2>My Bookings</h2>
         <ul>{bookings.map(b=>{const ride=rides.find(r=>r.id===b.rideId)||{}; return <li key={b.id}>{ride.from} ➡ {ride.to} on {ride.date} {ride.time} <button onClick={()=>cancelBooking(b)}>Cancel</button></li>;})}</ul>
       </div>}
 
-      {tab===\"profile\" && <div>
+      {tab==="profile" && <div>
         <h2>Profile</h2>
-        <input placeholder=\"Name\" value={user.name} onChange={e=>setUser({...user,name:e.target.value})}/> <input placeholder=\"Phone\" value={user.phone} onChange={e=>setUser({...user,phone:e.target.value})}/>
+        <input placeholder="Name" value={user.name} onChange={e=>setUser({...user,name:e.target.value})}/> <input placeholder="Phone" value={user.phone} onChange={e=>setUser({...user,phone:e.target.value})}/>
       </div>}
 
-      {toast && <div style={{marginTop:20,background:\"#eee\",padding:10}}>{toast}</div>}
+      {toast && <div style={{marginTop:20,background:"#eee",padding:10}}>{toast}</div>}
     </div>
   );
 }
